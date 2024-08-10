@@ -21,6 +21,10 @@ export const HeaderIcons = styled.nav`
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
 
+    &:focus {
+      box-shadow: none;
+    }
+
     &:hover {
       border-bottom: 3px solid ${({ theme }) => theme["green-500"]};
     }
