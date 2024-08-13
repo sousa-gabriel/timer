@@ -42,7 +42,7 @@ export const HistoryList = styled.div`
       font-size: 0.875rem;
       line-height: 1.6;
       &:first-child {
-        width: 50%;
+        width: 40%;
         padding-left: 1.5rem;
       }
       &:last-child {
@@ -75,4 +75,32 @@ export const Status = styled.span.withConfig({
     border-radius: 50%;
     background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
   }
+`;
+
+interface ButtonActionsProps {
+  action: "trash" | "repeat";
+}
+
+export const ButtonAction = styled.button<ButtonActionsProps>`
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: ${(props) => props.theme["gray-100"]};
+  transition: filter 0.2s;
+
+  &:hover {
+    color: ${(props) =>
+      props.action === "trash"
+        ? props.theme["red-500"]
+        : props.theme["green-500"]};
+  }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

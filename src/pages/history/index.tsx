@@ -1,11 +1,19 @@
 import { useContext } from "react";
 import { CyclesContext } from "../../context/CyclesContext";
-import { HistoryContainer, HistoryList, Status } from "./styles";
+import {
+  Actions,
+  ButtonAction,
+  HistoryContainer,
+  HistoryList,
+  Status,
+} from "./styles";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale/pt-BR";
+import { ArrowsCounterClockwise, Trash } from "phosphor-react";
 
 export function History() {
-  const { cycles } = useContext(CyclesContext);
+  const { cycles, removeCycleFromHistory, repeatCycleFromHistory } =
+    useContext(CyclesContext);
 
   return (
     <HistoryContainer>
@@ -19,6 +27,7 @@ export function History() {
               <th>Duração</th>
               <th>Duração</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +51,24 @@ export function History() {
                   {!cycle.interruptedDate && !cycle.finishedDate && (
                     <Status statusColor="yellow">Em andamento</Status>
                   )}
+                </td>
+                <td>
+                  <Actions>
+                    <ButtonAction
+                      action="trash"
+                      onClick={() => removeCycleFromHistory(cycle.id)}
+                    >
+                      <Trash size={24} />
+                    </ButtonAction>
+                    {(cycle.interruptedDate || cycle.finishedDate) && (
+                      <ButtonAction
+                        action="repeat"
+                        onClick={() => repeatCycleFromHistory(cycle.id)}
+                      >
+                        <ArrowsCounterClockwise size={24} />
+                      </ButtonAction>
+                    )}
+                  </Actions>
                 </td>
               </tr>
             ))}
